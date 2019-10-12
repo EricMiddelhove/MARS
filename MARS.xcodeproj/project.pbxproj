@@ -7,13 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		282C53642333D3BF00F66203 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282C53632333D3BF00F66203 /* PhotoViewController.swift */; };
+		282D78162330069D00A7C52F /* Sol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282D78152330069D00A7C52F /* Sol.swift */; };
+		2831C9872339442500642FB1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2831C9862339442500642FB1 /* Constants.swift */; };
 		283385F72327FA87008D586F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283385F62327FA87008D586F /* AppDelegate.swift */; };
-		283385F92327FA87008D586F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283385F82327FA87008D586F /* ViewController.swift */; };
+		283385F92327FA87008D586F /* MainMenueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283385F82327FA87008D586F /* MainMenueViewController.swift */; };
 		283385FC2327FA87008D586F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 283385FA2327FA87008D586F /* Main.storyboard */; };
 		283385FF2327FA87008D586F /* MARS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 283385FD2327FA87008D586F /* MARS.xcdatamodeld */; };
 		283386012327FA88008D586F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 283386002327FA88008D586F /* Assets.xcassets */; };
 		283386042327FA88008D586F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 283386022327FA88008D586F /* LaunchScreen.storyboard */; };
 		2833860F2327FA88008D586F /* MARSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2833860E2327FA88008D586F /* MARSUITests.swift */; };
+		2878C6BD232D8882009406C8 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2878C6BC232D8882009406C8 /* NetworkHandler.swift */; };
+		2884844C2339222E0009BF01 /* RobotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2884844B2339222E0009BF01 /* RobotViewController.swift */; };
+		288AA401232FFBE30067C44F /* DataCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288AA400232FFBE30067C44F /* DataCollection.swift */; };
+		28A9578B2332B4B000002ACA /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A9578A2332B4B000002ACA /* WeatherViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,9 +34,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		282C53632333D3BF00F66203 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		282D78152330069D00A7C52F /* Sol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sol.swift; sourceTree = "<group>"; };
+		2831C9862339442500642FB1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		283385F32327FA87008D586F /* MARS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MARS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		283385F62327FA87008D586F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		283385F82327FA87008D586F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		283385F82327FA87008D586F /* MainMenueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenueViewController.swift; sourceTree = "<group>"; };
 		283385FB2327FA87008D586F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		283385FE2327FA87008D586F /* MARS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MARS.xcdatamodel; sourceTree = "<group>"; };
 		283386002327FA88008D586F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,6 +48,10 @@
 		2833860A2327FA88008D586F /* MARSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MARSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2833860E2327FA88008D586F /* MARSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MARSUITests.swift; sourceTree = "<group>"; };
 		283386102327FA88008D586F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2878C6BC232D8882009406C8 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
+		2884844B2339222E0009BF01 /* RobotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotViewController.swift; sourceTree = "<group>"; };
+		288AA400232FFBE30067C44F /* DataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCollection.swift; sourceTree = "<group>"; };
+		28A9578A2332B4B000002ACA /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,8 +93,11 @@
 		283385F52327FA87008D586F /* MARS */ = {
 			isa = PBXGroup;
 			children = (
+				2831C9862339442500642FB1 /* Constants.swift */,
+				2878C6BE232D8F91009406C8 /* DataModels */,
+				2878C6BB232D886B009406C8 /* Handler */,
+				2878C6BA232D885C009406C8 /* ViewController */,
 				283385F62327FA87008D586F /* AppDelegate.swift */,
-				283385F82327FA87008D586F /* ViewController.swift */,
 				283385FA2327FA87008D586F /* Main.storyboard */,
 				283386002327FA88008D586F /* Assets.xcassets */,
 				283386022327FA88008D586F /* LaunchScreen.storyboard */,
@@ -97,6 +114,34 @@
 				283386102327FA88008D586F /* Info.plist */,
 			);
 			path = MARSUITests;
+			sourceTree = "<group>";
+		};
+		2878C6BA232D885C009406C8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				283385F82327FA87008D586F /* MainMenueViewController.swift */,
+				28A9578A2332B4B000002ACA /* WeatherViewController.swift */,
+				2884844B2339222E0009BF01 /* RobotViewController.swift */,
+				282C53632333D3BF00F66203 /* PhotoViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2878C6BB232D886B009406C8 /* Handler */ = {
+			isa = PBXGroup;
+			children = (
+				2878C6BC232D8882009406C8 /* NetworkHandler.swift */,
+			);
+			path = Handler;
+			sourceTree = "<group>";
+		};
+		2878C6BE232D8F91009406C8 /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				288AA400232FFBE30067C44F /* DataCollection.swift */,
+				282D78152330069D00A7C52F /* Sol.swift */,
+			);
+			path = DataModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,9 +245,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				283385F92327FA87008D586F /* ViewController.swift in Sources */,
+				283385F92327FA87008D586F /* MainMenueViewController.swift in Sources */,
+				282D78162330069D00A7C52F /* Sol.swift in Sources */,
 				283385F72327FA87008D586F /* AppDelegate.swift in Sources */,
+				2878C6BD232D8882009406C8 /* NetworkHandler.swift in Sources */,
+				28A9578B2332B4B000002ACA /* WeatherViewController.swift in Sources */,
+				2831C9872339442500642FB1 /* Constants.swift in Sources */,
+				282C53642333D3BF00F66203 /* PhotoViewController.swift in Sources */,
 				283385FF2327FA87008D586F /* MARS.xcdatamodeld in Sources */,
+				2884844C2339222E0009BF01 /* RobotViewController.swift in Sources */,
+				288AA401232FFBE30067C44F /* DataCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
