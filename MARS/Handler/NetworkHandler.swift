@@ -28,7 +28,6 @@ class NetworkHandler{
     let metaSemaphore = DispatchSemaphore(value: 0)
     let downloadSemaphore = DispatchSemaphore(value: 0)
     
-    let concurrentQueue = DispatchQueue.global(qos: .userInitiated)
     
     //---------------------------------------------------
     //
@@ -45,51 +44,45 @@ class NetworkHandler{
         var sol: Sol?
         
         request.httpMethod = "GET"
-        
-        
-        
-        concurrentQueue.async {
            
-            self.session.dataTask(with: request) { (dat, res, err) in
+        self.session.dataTask(with: request) { (dat, res, err) in
                 
                 
-                guard let data = dat else {
-                    print("no Data")
-                    return
-                }
+            guard let data = dat else {
+                print("no Data")
+                return
+            }
                 
-                guard res == res else {
-                    print("No Response ")
-                    return
-                }
-                
-                if let error = err {
-                    print("Error: \(error)")
-                    return
-                }
+            guard res == res else {
+                print("No Response ")
+                return
+            }
+            
+            if let error = err {
+                print("Error: \(error)")
+                return
+            }
                 
 
-                do{
+            do{
                     
-                    var dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]
-                    dictionary!["validity_checks"] = "" as AnyObject
+                var dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]
+                dictionary!["validity_checks"] = "" as AnyObject
                     
-                    let dict = dictionary!
-                    let solKeys = dict["sol_keys"]! as! NSArray
+                let dict = dictionary!
+                let solKeys = dict["sol_keys"]! as! NSArray
                     
-                    self.latestSolKey = solKeys[solKeys.count-1] as! String // Suche den letzten Sol als String -> key für das gesamte dictionary
-                    
-                    
-                    sol = Sol(from: dict[self.latestSolKey] as! NSDictionary)
-
-                    
-                } catch {
-                    print("Data decode failed \(error)")
-                }
+                self.latestSolKey = solKeys[solKeys.count-1] as! String // Suche den letzten Sol als String -> key für das gesamte dictionary
                 
-                semaphore.signal()
-            }.resume()
-        }
+                sol = Sol(from: dict[self.latestSolKey] as! NSDictionary)
+                
+            } catch {
+                print("Data decode failed \(error)")
+            }
+            
+            semaphore.signal()
+        }.resume()
+        
         
         semaphore.wait()
         
