@@ -53,7 +53,6 @@ class MainMenueViewController: UIViewController {
     //
     //MARK: Helper
     //
-
    
 }
 

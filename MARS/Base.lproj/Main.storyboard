@@ -337,7 +337,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="iue-Zw-S2D" kind="unwind" unwindAction="unwindToMainMenueWithSegue:" id="4MH-es-7RS"/>
+                                    <segue destination="iue-Zw-S2D" kind="unwind" unwindAction="unwindToRobotView:" id="MTO-a3-Sfq"/>
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5k-Dz-1Lk">

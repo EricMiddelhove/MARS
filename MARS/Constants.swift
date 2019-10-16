@@ -17,5 +17,8 @@ class Constants{
     }
     
     static var SolData: Sol = Sol(from: [:])
- 
+    static var metadata: [PhotoMetadata]!
+    static var imageData: Data? = nil
+    
+
 }

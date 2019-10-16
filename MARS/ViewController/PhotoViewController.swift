@@ -28,7 +28,6 @@ class PhotoViewController: UIViewController{
     
     
     var reportedRobot: Constants.Robots!
-    var metadata: [PhotoMetadata]!
     var images: [UIImageView] = []
     
     override func viewDidLoad() {
@@ -41,14 +40,50 @@ class PhotoViewController: UIViewController{
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        metadata = networker.getAllPictureMetadata(takenBy: reportedRobot)
-        for i in 0...3 {
-            addNewImageFrom(data: networker.getImageFrom(urlString: metadata[i].img_src)!)
+        //Image Downloaded Handler
+        NotificationCenter.default.addObserver(self, selector: #selector(PhotoViewController.gotNewImageData(_:)), name: NSNotification.Name(rawValue: "NewImageData"), object: nil)
+        
+        //Meta Downloaded Handler
+        NotificationCenter.default.addObserver(self, selector: #selector(PhotoViewController.metaDownloaded(_:)), name: NSNotification.Name(rawValue: "downloadedMetaData"), object: nil)
+        
+        //Start Downloading
+        
+        //Download Metadata
+        print("Call meta download")
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.networker.getAllPictureMetadata(takenBy: self.reportedRobot)
+        }
+        print("Called meta download")
+
+        //Download Images
+       
+        //Ab hier übernimmt der metaDownload Handler, der nach abschluss des Metadata Downloads gecalled wird
+    }
+    //MARK: Actions
+    @objc func gotNewImageData(_ notification: Notification){
+        print("nachricht Empfangen")
+        // Rufe addNewImage im main Thread auf, wegen den UI Zugriff
+        DispatchQueue.main.sync{
+            self.addNewImageFrom(data: Constants.imageData!)
         }
     }
     
+    @objc func metaDownloaded(_ notification: Notification){
+        for i in 1...4 {
+            print("Call download")
+                   
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
+            }
+                   
+            print(" Called download")
+
+        }
+        print("all downloads triggered")
+    }
     //MARK: Functions
-    
+
     func addNewImageFrom(data:Data){
         let w = contentView.frame.width - STANDARD_FRONT_SPACING * 2  //WIDTH = HEIGHT
         let y = (STANDARD_TOP_SPACING + w) * CGFloat(images.count)
@@ -59,14 +94,10 @@ class PhotoViewController: UIViewController{
         let newImageView = UIImageView(frame: rect)
         
         guard data == data else{
-            
-            
             return
         }
         
         let image = UIImage(data: data)
-        //Todoj: Resizing contentView
-    
         
         let currentHeight = contentView.frame.height
 
@@ -80,11 +111,9 @@ class PhotoViewController: UIViewController{
         
         contentView.addSubview(newImageView)
         loadingLabel.isHidden = true
-        
-        
     }
 }
-
+//MARK: Extensions
 extension PhotoViewController: UIScrollViewDelegate{
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -92,8 +121,13 @@ extension PhotoViewController: UIScrollViewDelegate{
         if (offset + scrollView.frame.height == contentView.frame.height){ //Wenn am untersten ende des Views
             
             for i in images.count ... images.count + 1 {
-                if i < metadata.count {
-                    addNewImageFrom(data: networker.getImageFrom(urlString: metadata[i].img_src)!)
+                if i < Constants.metadata.count {
+                    //Neue Bilder herunterladen
+                    
+                    for i in 1...2 {
+                        networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
+                    }
+                    
                 } else {
                     break
                 }

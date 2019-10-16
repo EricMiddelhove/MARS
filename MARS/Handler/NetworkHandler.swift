@@ -45,7 +45,7 @@ class NetworkHandler{
         
         request.httpMethod = "GET"
            
-        self.session.dataTask(with: request) { (dat, res, err) in
+        URLSession.shared.dataTask(with: request) { (dat, res, err) in
                 
                 
             guard let data = dat else {
@@ -89,7 +89,7 @@ class NetworkHandler{
         return sol ?? Sol(from: [:])
     }
     
-    func getAllPictureMetadata(takenBy robot: Constants.Robots) -> [PhotoMetadata]{
+    func getAllPictureMetadata(takenBy robot: Constants.Robots){
         
         let decoder = JSONDecoder()
         
@@ -117,7 +117,7 @@ class NetworkHandler{
         request.httpMethod = "GET"
         
         let semaphore = DispatchSemaphore(value: 0)
-        session.dataTask(with: request) { (d, r, e) in
+        URLSession.shared.dataTask(with: request) { (d, r, e) in
             
             guard let data = d else{
                 print("No Data")
@@ -141,17 +141,17 @@ class NetworkHandler{
                 fatalError("\(error)")
             }
             
-            semaphore.signal()
+            Constants.metadata = photos.photos
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "downloadedMetaData"), object: self)
         }.resume()
-        semaphore.wait()
-        return photos.photos
     }
     
-    func getImageFrom(urlString: String) -> Data?{
-        
+    //Posts image data in Constants class
+    func downloadImageFrom(urlString: String){
+        print("Herunterladen")
         let url = URL(string: urlString)!
         
-        print(url)
+//        print(url)
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -159,31 +159,34 @@ class NetworkHandler{
         var data: Data?
         let semaphore = DispatchSemaphore(value: 0)
         
-            
-        session.dataTask(with: request) { (d, r, e) in
+        URLSession.shared.dataTask(with: request) { (d, r, e) in
             guard let dat = d else {
                 print("No Data")
                 return
             }
-                
+                    
             guard r == r else {
                 print("No Response")
                 return
             }
-                
+                    
             if let err = e {
                 print("ERROR: \(err)")
             }
-                
+                    
             data = dat
-            semaphore.signal()
+            Constants.imageData = data
+                
+                
+            print("Herunterladen fertig. Sende Nachricht")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "NewImageData"), object: self)
+                
+                
         }.resume()
         
-        semaphore.wait()
-        return data
     }
 }
-
+//MARK: Structs
 struct Photos:Codable{
     var photos: [PhotoMetadata]
 }

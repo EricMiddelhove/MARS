@@ -32,7 +32,7 @@ class RobotViewController: UIViewController{
         photoButton.layer.borderWidth = 2
         photoButton.layer.borderColor = photoButton.currentTitleColor.cgColor
         photoButton.layer.cornerRadius = 10
-//        
+        
 //        stackContainerView.layer.borderWidth = 2
 //        stackContainerView.layer.borderColor = photoButton.currentTitleColor.cgColor
 //        stackContainerView.layer.cornerRadius = 5
@@ -65,4 +65,9 @@ class RobotViewController: UIViewController{
             dest.reportedRobot = chosenRobot
         }
     }
+
+    @IBAction func unwindToRobotView(_ segue: UIStoryboardSegue){
+        print("Gehe zurück")
+    }
+
 }
