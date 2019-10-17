@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Photos
 
 class PhotoViewController: UIViewController{
     //MARK: Outlets
@@ -25,14 +26,15 @@ class PhotoViewController: UIViewController{
     let STANDARD_FRONT_SPACING:CGFloat = 21
     let STABDARD_BACK_SPACING:CGFloat = 21
     let STANDARD_BOTTOM_SPACING:CGFloat = 23
-    
+    let tapRecognizer = UITapGestureRecognizer()
     
     var reportedRobot: Constants.Robots!
-    var images: [UIImageView] = []
+    var images: [UIButton] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
+        tapRecognizer.delegate = self
         
         photoButton.layer.borderWidth = 2
         photoButton.layer.borderColor = photoButton.currentTitleColor.cgColor
@@ -62,7 +64,6 @@ class PhotoViewController: UIViewController{
     }
     //MARK: Actions
     @objc func gotNewImageData(_ notification: Notification){
-        print("nachricht Empfangen")
         // Rufe addNewImage im main Thread auf, wegen den UI Zugriff
         DispatchQueue.main.sync{
             self.addNewImageFrom(data: Constants.imageData!)
@@ -71,19 +72,23 @@ class PhotoViewController: UIViewController{
     
     @objc func metaDownloaded(_ notification: Notification){
         for i in 1...4 {
-            print("Call download")
-                   
             DispatchQueue.global(qos: .userInitiated).async {
                 self.networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
             }
-                   
-            print(" Called download")
-
         }
-        print("all downloads triggered")
     }
+    
+    @objc func gestureRecognized(_ sender: UIButton){
+        print("mööp")
+        
+        let image = sender.currentImage!
+        
+        addImageToLibrary(image)
+        
+    }
+    
+    
     //MARK: Functions
-
     func addNewImageFrom(data:Data){
         let w = contentView.frame.width - STANDARD_FRONT_SPACING * 2  //WIDTH = HEIGHT
         let y = (STANDARD_TOP_SPACING + w) * CGFloat(images.count)
@@ -91,31 +96,51 @@ class PhotoViewController: UIViewController{
         
         //Creating view for UIImage
         let rect = CGRect(x: STANDARD_FRONT_SPACING, y: y, width: w, height: w) as CGRect
-        let newImageView = UIImageView(frame: rect)
+        
+        let newButton = UIButton(frame: rect)
+        newButton.addTarget(self, action: #selector(self.gestureRecognized(_:)), for: .touchUpInside)
         
         guard data == data else{
             return
         }
         
         let image = UIImage(data: data)
-        
+        newButton.setImage(image, for: .normal)
+
         let currentHeight = contentView.frame.height
 
-        if currentHeight < newImageView.frame.maxY {
-            heightConstraint.constant += newImageView.frame.height + STANDARD_TOP_SPACING
+        if currentHeight < newButton.frame.maxY {
+            heightConstraint.constant += newButton.frame.height + STANDARD_TOP_SPACING
         }
         
         //Adding view to superview
-        newImageView.image = image
-        images += [newImageView]
+        images += [newButton]
+        contentView.addSubview(newButton)
         
-        contentView.addSubview(newImageView)
+        //Hiding loading label
         loadingLabel.isHidden = true
     }
+    
+    func addImageToLibrary(_ image: UIImage){
+        
+        
+            
+        PHPhotoLibrary.shared().performChanges({
+            let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
+            
+            let addAssetRequest = PHAssetCollectionChangeRequest()
+            
+            addAssetRequest.addAssets([creationRequest.placeholderForCreatedAsset!] as NSArray)
+        }) { (successful, error) in
+            if(successful){
+                print("Saved to Library")
+            }
+        }
+    }
 }
+
 //MARK: Extensions
 extension PhotoViewController: UIScrollViewDelegate{
-
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         if (offset + scrollView.frame.height == contentView.frame.height){ //Wenn am untersten ende des Views
@@ -133,6 +158,12 @@ extension PhotoViewController: UIScrollViewDelegate{
                 }
             }
         }
+    }
+}
+extension PhotoViewController: UIGestureRecognizerDelegate{
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("ja lol ey")
     }
     
 }

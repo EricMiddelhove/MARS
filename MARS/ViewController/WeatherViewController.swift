@@ -43,18 +43,25 @@ class WeatherViewController: UIViewController{
         photoButton.layer.borderWidth = 2
         photoButton.layer.borderColor = photoButton.currentTitleColor.cgColor
         photoButton.layer.cornerRadius = 10
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(recievedWeatherData(_:)), name: Notification.Name(rawValue: "weatherdataRecieved"), object: nil)
+        // Lade Herunter und speichere in Constants.solData
+        networker.getWeatherData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    
+    @objc func recievedWeatherData(_ notification: Notification){
         
-        sol = networker.getWeatherData()
+        DispatchQueue.main.sync {
+            sol = Constants.SolData
+            solLabel.text = SOL_STAND + networker.latestSolKey
+            atLabel.text = AT_STAND + sol.AT.av + " °C"
+            minTLabel.text = MINT_STAND + sol.AT.mn + " °C"
+            maxTLabel.text = MAXT_STAND + sol.AT.mx + " °C"
+            wsLabel.text = WS_STAND + String(sol.HWS.avRaw) + " m/s"            // String(...avRaw) raw value da normales automatisch in °C umgewandelt wird ...
+            preLabel.text = PRE_STAND + String(sol.PRE.avRaw) + " Pa"
+        }
         
-        solLabel.text = SOL_STAND + networker.latestSolKey
-        atLabel.text = AT_STAND + sol.AT.av + " °C"
-        minTLabel.text = MINT_STAND + sol.AT.mn + " °C"
-        maxTLabel.text = MAXT_STAND + sol.AT.mx + " °C"
-        wsLabel.text = WS_STAND + String(sol.HWS.avRaw) + " m/s"            // String(...avRaw) raw value da normales automatisch in °C umgewandelt wird ...
-        preLabel.text = PRE_STAND + String(sol.PRE.avRaw) + " Pa"
     }
     
 }

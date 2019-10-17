@@ -12,10 +12,9 @@ import Network
 
 
 class NetworkHandler{
-    //---------------------------------------------------
-    //
+
     //MARK: Variables and constants
-    //
+
     let session = URLSession.shared
     let WEATHER = "https://api.nasa.gov/insight_weather/?api_key=2V9ACrQ50aZcc6lprgYd00WbFFAMRNA9LdtdzQKQ&feedtype=json&ver=1.0"
     
@@ -28,25 +27,18 @@ class NetworkHandler{
     let metaSemaphore = DispatchSemaphore(value: 0)
     let downloadSemaphore = DispatchSemaphore(value: 0)
     
-    
-    //---------------------------------------------------
-    //
     //MARK: Functions
-    //
     
     //Returns Sol object containing weatherdata
-    func getWeatherData() -> Sol{
-        let semaphore = DispatchSemaphore.init(value: 0)
+    func getWeatherData(){
         
         let url = URL(string: WEATHER)!
         print(url)
         var request = URLRequest(url: url)
-        var sol: Sol?
         
         request.httpMethod = "GET"
            
         URLSession.shared.dataTask(with: request) { (dat, res, err) in
-                
                 
             guard let data = dat else {
                 print("no Data")
@@ -74,19 +66,16 @@ class NetworkHandler{
                     
                 self.latestSolKey = solKeys[solKeys.count-1] as! String // Suche den letzten Sol als String -> key für das gesamte dictionary
                 
-                sol = Sol(from: dict[self.latestSolKey] as! NSDictionary)
+                Constants.SolData = Sol(from: dict[self.latestSolKey] as! NSDictionary)
                 
             } catch {
                 print("Data decode failed \(error)")
             }
             
-            semaphore.signal()
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "weatherdataRecieved"), object: nil)
+            
         }.resume()
         
-        
-        semaphore.wait()
-        
-        return sol ?? Sol(from: [:])
     }
     
     func getAllPictureMetadata(takenBy robot: Constants.Robots){
@@ -116,7 +105,6 @@ class NetworkHandler{
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
-        let semaphore = DispatchSemaphore(value: 0)
         URLSession.shared.dataTask(with: request) { (d, r, e) in
             
             guard let data = d else{
@@ -148,7 +136,6 @@ class NetworkHandler{
     
     //Posts image data in Constants class
     func downloadImageFrom(urlString: String){
-        print("Herunterladen")
         let url = URL(string: urlString)!
         
 //        print(url)
@@ -157,7 +144,6 @@ class NetworkHandler{
         request.httpMethod = "GET"
         
         var data: Data?
-        let semaphore = DispatchSemaphore(value: 0)
         
         URLSession.shared.dataTask(with: request) { (d, r, e) in
             guard let dat = d else {
@@ -178,7 +164,6 @@ class NetworkHandler{
             Constants.imageData = data
                 
                 
-            print("Herunterladen fertig. Sende Nachricht")
             NotificationCenter.default.post(name: Notification.Name(rawValue: "NewImageData"), object: self)
                 
                 

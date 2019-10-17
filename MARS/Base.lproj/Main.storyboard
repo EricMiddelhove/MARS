@@ -234,7 +234,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EMJ-bU-zPK" userLabel="stackContainer">
-                                <rect key="frame" x="16" y="162" width="225" height="197"/>
+                                <rect key="frame" x="16" y="153" width="225" height="197"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="HQw-LG-0Et">
                                         <rect key="frame" x="0.0" y="0.0" width="211" height="185"/>
@@ -289,8 +289,9 @@
                         <constraints>
                             <constraint firstItem="EMJ-bU-zPK" firstAttribute="leading" secondItem="tyU-wT-J9t" secondAttribute="leading" constant="16" id="7Rw-I7-TMT"/>
                             <constraint firstItem="tyU-wT-J9t" firstAttribute="trailing" secondItem="DZ2-5Y-Q1M" secondAttribute="trailing" id="G42-w2-q16"/>
+                            <constraint firstItem="DZ2-5Y-Q1M" firstAttribute="top" secondItem="EMJ-bU-zPK" secondAttribute="bottom" id="HBZ-Db-Yi6"/>
                             <constraint firstItem="tyU-wT-J9t" firstAttribute="bottom" secondItem="DZ2-5Y-Q1M" secondAttribute="bottom" id="O1N-Ge-cG3"/>
-                            <constraint firstItem="EMJ-bU-zPK" firstAttribute="top" secondItem="9eJ-zO-D8I" secondAttribute="bottom" priority="251" constant="44" id="aF9-xt-c4X"/>
+                            <constraint firstItem="EMJ-bU-zPK" firstAttribute="top" secondItem="9eJ-zO-D8I" secondAttribute="bottom" priority="251" constant="20" id="aF9-xt-c4X"/>
                             <constraint firstItem="DZ2-5Y-Q1M" firstAttribute="leading" secondItem="tyU-wT-J9t" secondAttribute="leading" priority="250" id="blW-aT-siY"/>
                             <constraint firstItem="9eJ-zO-D8I" firstAttribute="leading" secondItem="tyU-wT-J9t" secondAttribute="leading" constant="137" id="ddg-V1-yg1"/>
                             <constraint firstItem="tyU-wT-J9t" firstAttribute="bottom" secondItem="EMJ-bU-zPK" secondAttribute="bottom" priority="250" constant="288" id="ebY-2f-am8"/>
