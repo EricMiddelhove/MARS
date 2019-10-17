@@ -62,6 +62,7 @@ class PhotoViewController: UIViewController{
        
         //Ab hier übernimmt der metaDownload Handler, der nach abschluss des Metadata Downloads gecalled wird
     }
+    
     //MARK: Actions
     @objc func gotNewImageData(_ notification: Notification){
         // Rufe addNewImage im main Thread auf, wegen den UI Zugriff
@@ -87,7 +88,6 @@ class PhotoViewController: UIViewController{
         
     }
     
-    
     //MARK: Functions
     func addNewImageFrom(data:Data){
         let w = contentView.frame.width - STANDARD_FRONT_SPACING * 2  //WIDTH = HEIGHT
@@ -100,12 +100,15 @@ class PhotoViewController: UIViewController{
         let newButton = UIButton(frame: rect)
         newButton.addTarget(self, action: #selector(self.gestureRecognized(_:)), for: .touchUpInside)
         
-        guard data == data else{
-            return
-        }
-        
+        guard data == data else{return}
         let image = UIImage(data: data)
-        newButton.setImage(image, for: .normal)
+        
+        
+        let imageRect = CGRect(x: 0, y: 0, width: w, height: w)
+        let imageView = UIImageView(frame: imageRect)
+        
+        imageView.image = image
+        newButton.addSubview(imageView)
 
         let currentHeight = contentView.frame.height
 
@@ -123,19 +126,26 @@ class PhotoViewController: UIViewController{
     
     func addImageToLibrary(_ image: UIImage){
         
+        let alert = UIAlertController(title: "Save?", message: "Save this picture to your library?", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "no", style: .default, handler: nil))
+        
+
+        alert.addAction(UIAlertAction(title: "yes", style: .default,handler:{ (alertAction) in
+             PHPhotoLibrary.shared().performChanges({
+                       let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
+                       
+                       let addAssetRequest = PHAssetCollectionChangeRequest()
+                       
+                       addAssetRequest.addAssets([creationRequest.placeholderForCreatedAsset!] as NSArray)
+                   }) { (successful, error) in
+                       if(successful){
+                           print("Saved to Library")
+                       }
+                   }
+        }))
         
             
-        PHPhotoLibrary.shared().performChanges({
-            let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
-            
-            let addAssetRequest = PHAssetCollectionChangeRequest()
-            
-            addAssetRequest.addAssets([creationRequest.placeholderForCreatedAsset!] as NSArray)
-        }) { (successful, error) in
-            if(successful){
-                print("Saved to Library")
-            }
-        }
+        self.present(alert, animated: true)
     }
 }
 
@@ -149,7 +159,7 @@ extension PhotoViewController: UIScrollViewDelegate{
                 if i < Constants.metadata.count {
                     //Neue Bilder herunterladen
                     
-                    for i in 1...2 {
+                    for _ in 1...2 {
                         networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
                     }
                     
