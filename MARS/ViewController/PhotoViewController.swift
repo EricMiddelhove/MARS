@@ -82,9 +82,9 @@ class PhotoViewController: UIViewController{
     @objc func gestureRecognized(_ sender: UIButton){
         print("mööp")
         
-        let image = sender.currentImage!
+        let image = sender.subviews[0] as! UIImageView
         
-        addImageToLibrary(image)
+        addImageToLibrary(image.image!)
         
     }
     
