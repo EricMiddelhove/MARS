@@ -18,6 +18,7 @@ class Constants{
     
     static var SolData: Sol = Sol(from: [:])
     static var metadata: [PhotoMetadata]!
+    static var latestSolKey: String = "" // Init in getWeatherData
     static var imageData: Data? = nil
 
 }

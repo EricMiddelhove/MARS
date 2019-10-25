@@ -21,8 +21,6 @@ class NetworkHandler{
     let IMG_META_BASE = "https://api.nasa.gov/mars-photos/api/v1/rovers/"
     let IMG_PARAMETERS = "/photos?sol=100&api_key=2V9ACrQ50aZcc6lprgYd00WbFFAMRNA9LdtdzQKQ"
     
-    var latestSolKey: String = "" // Init in getWeatherData
-    
     let weatherSemaphore = DispatchSemaphore(value: 0)
     let metaSemaphore = DispatchSemaphore(value: 0)
     let downloadSemaphore = DispatchSemaphore(value: 0)
@@ -31,6 +29,8 @@ class NetworkHandler{
     
     //Returns Sol object containing weatherdata
     func getWeatherData(){
+        
+        print("Lade herunter")
         
         let url = URL(string: WEATHER)!
         print(url)
@@ -64,9 +64,9 @@ class NetworkHandler{
                 let dict = dictionary!
                 let solKeys = dict["sol_keys"]! as! NSArray
                     
-                self.latestSolKey = solKeys[solKeys.count-1] as! String // Suche den letzten Sol als String -> key für das gesamte dictionary
+                Constants.latestSolKey = solKeys[solKeys.count-1] as! String // Suche den letzten Sol als String -> key für das gesamte dictionary
                 
-                Constants.SolData = Sol(from: dict[self.latestSolKey] as! NSDictionary)
+                Constants.SolData = Sol(from: dict[Constants.latestSolKey] as! NSDictionary)
                 
             } catch {
                 print("Data decode failed \(error)")
@@ -76,6 +76,7 @@ class NetworkHandler{
             
         }.resume()
         
+        print("Herunterladen abgeschlossen")
     }
     
     func getAllPictureMetadata(takenBy robot: Constants.Robots){
@@ -96,7 +97,11 @@ class NetworkHandler{
             fatalError("No Robot chosen");
         }
         
-        urlString += IMG_PARAMETERS
+        
+        if Constants.latestSolKey == ""{
+            getWeatherData() //Lade nochmal die Wetterdaten herunter (Bewusst nicht Asyncron)
+        }
+        urlString += "/photos?sol="+Constants.latestSolKey+"&api_key=2V9ACrQ50aZcc6lprgYd00WbFFAMRNA9LdtdzQKQ"
         
         print(urlString)
         

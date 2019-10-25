@@ -79,8 +79,7 @@ class PhotoViewController: UIViewController{
         }
     }
     
-    @objc func gestureRecognized(_ sender: UIButton){
-        print("mööp")
+    @objc func imageButtonTapped(_ sender: UIButton){
         
         let image = sender.subviews[0] as! UIImageView
         
@@ -98,7 +97,7 @@ class PhotoViewController: UIViewController{
         let rect = CGRect(x: STANDARD_FRONT_SPACING, y: y, width: w, height: w) as CGRect
         
         let newButton = UIButton(frame: rect)
-        newButton.addTarget(self, action: #selector(self.gestureRecognized(_:)), for: .touchUpInside)
+        newButton.addTarget(self, action: #selector(self.imageButtonTapped(_:)), for: .touchUpInside)
         
         guard data == data else{return}
         let image = UIImage(data: data)

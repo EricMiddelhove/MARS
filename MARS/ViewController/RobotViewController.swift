@@ -33,10 +33,6 @@ class RobotViewController: UIViewController{
         photoButton.layer.borderColor = photoButton.currentTitleColor.cgColor
         photoButton.layer.cornerRadius = 10
         
-//        stackContainerView.layer.borderWidth = 2
-//        stackContainerView.layer.borderColor = photoButton.currentTitleColor.cgColor
-//        stackContainerView.layer.cornerRadius = 5
-        
     }
 
     //---------------------------------------------------

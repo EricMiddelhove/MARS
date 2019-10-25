@@ -18,8 +18,15 @@ class MainMenueViewController: UIViewController {
     @IBOutlet weak var photoButton: UIButton!
     @IBOutlet weak var weatherButton: UIButton!
     
+    let networker = NetworkHandler()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DispatchQueue.global().async {
+            self.networker.getWeatherData()
+        }
+        
         photoButton.layer.borderWidth = 2
         photoButton.layer.borderColor = photoButton.currentTitleColor.cgColor
         photoButton.layer.cornerRadius = 10
@@ -27,6 +34,7 @@ class MainMenueViewController: UIViewController {
         weatherButton.layer.borderWidth = 2
         weatherButton.layer.borderColor = weatherButton.currentTitleColor.cgColor
         weatherButton.layer.cornerRadius = 10
+        
     }
     
     //---------------------------------------------------
@@ -34,8 +42,6 @@ class MainMenueViewController: UIViewController {
     //MARK: IBActions
     //
     @IBAction func weatherButtonPressed(_ sender: UIButton) {
-        
-        
         
     }
 

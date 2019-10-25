@@ -46,7 +46,13 @@ class WeatherViewController: UIViewController{
         
         NotificationCenter.default.addObserver(self, selector: #selector(recievedWeatherData(_:)), name: Notification.Name(rawValue: "weatherdataRecieved"), object: nil)
         // Lade Herunter und speichere in Constants.solData
-        networker.getWeatherData()
+        
+        //teste ob daten schon heruntergeladen wurden,wenn ja dann triggere ich die UI Upadte Methode, wenn nicht dann lade ich sie herunter
+        
+        
+        DispatchQueue.global().async {
+            self.networker.getWeatherData()
+        }
     }
     
     
@@ -54,7 +60,7 @@ class WeatherViewController: UIViewController{
         
         DispatchQueue.main.sync {
             sol = Constants.SolData
-            solLabel.text = SOL_STAND + networker.latestSolKey
+            solLabel.text = SOL_STAND + Constants.latestSolKey
             atLabel.text = AT_STAND + sol.AT.av + " °C"
             minTLabel.text = MINT_STAND + sol.AT.mn + " °C"
             maxTLabel.text = MAXT_STAND + sol.AT.mx + " °C"
