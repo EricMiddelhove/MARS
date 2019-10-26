@@ -23,9 +23,9 @@ class MainMenueViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.global().async {
-            self.networker.getWeatherData()
-        }
+//        DispatchQueue.global().async {
+//            self.networker.getWeatherData()
+//        }
         
         photoButton.layer.borderWidth = 2
         photoButton.layer.borderColor = photoButton.currentTitleColor.cgColor

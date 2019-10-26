@@ -72,11 +72,24 @@ class PhotoViewController: UIViewController{
     }
     
     @objc func metaDownloaded(_ notification: Notification){
-        for i in 1...4 {
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
+        
+        print(Constants.metadata.count)
+        
+        if Constants.metadata.count > 4 {
+            for i in 0...3{
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
+                }
+            }
+        }else{
+            for i in 0...Constants.metadata.count - 1{
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
+                }
             }
         }
+        
+        
     }
     
     @objc func imageButtonTapped(_ sender: UIButton){
