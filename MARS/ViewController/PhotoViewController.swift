@@ -16,8 +16,7 @@ class PhotoViewController: UIViewController{
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var photoButton: UIButton!
-    @IBOutlet weak var loadingLabel: UILabel!
-    
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     
     //MARK: Variables & Constants
@@ -33,55 +32,72 @@ class PhotoViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Download Metadata
+        loadingIndicator.startAnimating()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.networker.getLatestSol(from: self.reportedRobot)
+            self.networker.getAllPictureMetadata(takenBy: self.reportedRobot)
+        }
+
         scrollView.delegate = self
-        tapRecognizer.delegate = self
         
         photoButton.layer.borderWidth = 2
         photoButton.layer.borderColor = photoButton.currentTitleColor.cgColor
         photoButton.layer.cornerRadius = 10
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
+        loadingIndicator.hidesWhenStopped = true
+        
         //Image Downloaded Handler
         NotificationCenter.default.addObserver(self, selector: #selector(PhotoViewController.gotNewImageData(_:)), name: NSNotification.Name(rawValue: "NewImageData"), object: nil)
-        
+               
         //Meta Downloaded Handler
         NotificationCenter.default.addObserver(self, selector: #selector(PhotoViewController.metaDownloaded(_:)), name: NSNotification.Name(rawValue: "downloadedMetaData"), object: nil)
-        
+               
         //Start Downloading
-        
-        //Download Metadata
-        print("Call meta download")
-
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.networker.getAllPictureMetadata(takenBy: self.reportedRobot)
-        }
-        print("Called meta download")
-
+               
         //Download Images
-       
+        
         //Ab hier übernimmt der metaDownload Handler, der nach abschluss des Metadata Downloads gecalled wird
+        
     }
     
     //MARK: Actions
+    
+    //Heruntergeladene Bilder anzeigen
     @objc func gotNewImageData(_ notification: Notification){
         // Rufe addNewImage im main Thread auf, wegen den UI Zugriff
         DispatchQueue.main.sync{
+            loadingIndicator.stopAnimating()
             self.addNewImageFrom(data: Constants.imageData!)
         }
     }
-    
+
+    //Initiale Bilder herunterladen
     @objc func metaDownloaded(_ notification: Notification){
+
+        DispatchQueue.main.sync {
+            loadingIndicator.stopAnimating()
+        }
+       
         
-        print(Constants.metadata.count)
         
         if Constants.metadata.count > 4 {
+            // Nur 3 Herunterladen
+            
             for i in 0...3{
                 DispatchQueue.global(qos: .userInitiated).async {
                     self.networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
                 }
             }
         }else{
+            //Alle Herunterladen
+
+            if Constants.metadata.count == 0 {
+                //Wenn keine Bilder vorhanden sind, nichts herunterladen
+                return
+            }
+            
+            //Sonst alle herunterladen
             for i in 0...Constants.metadata.count - 1{
                 DispatchQueue.global(qos: .userInitiated).async {
                     self.networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
@@ -92,18 +108,20 @@ class PhotoViewController: UIViewController{
         
     }
     
+    //Listener für die Galerie speiechern Funktion
     @objc func imageButtonTapped(_ sender: UIButton){
         
+        //Ignoriert die position im Bilder Array des PhotoViewControllers
         let image = sender.subviews[0] as! UIImageView
         
         addImageToLibrary(image.image!)
         
     }
     
-    //MARK: Functions
+    //MARK: Helper Functions
     func addNewImageFrom(data:Data){
         let w = contentView.frame.width - STANDARD_FRONT_SPACING * 2  //WIDTH = HEIGHT
-        let y = (STANDARD_TOP_SPACING + w) * CGFloat(images.count)
+        let y = (STANDARD_TOP_SPACING + w) * CGFloat(contentView.subviews.count - 1)
         
         
         //Creating view for UIImage
@@ -133,7 +151,7 @@ class PhotoViewController: UIViewController{
         contentView.addSubview(newButton)
         
         //Hiding loading label
-        loadingLabel.isHidden = true
+//        loadingLabel.isHidden = true
     }
     
     func addImageToLibrary(_ image: UIImage){
@@ -159,33 +177,55 @@ class PhotoViewController: UIViewController{
             
         self.present(alert, animated: true)
     }
+    
+    func goToNextSol(){
+        loadingIndicator.startAnimating()
+        print("Gehe zu Nächstem Sol")
+        
+        //Aktualisiere den Sol
+        networker.maxSol! -=  1
+        
+        //Lösche die images Array
+        images = []
+        print("Sol: \(networker.maxSol!)")
+        print("Image count: \(images.count)")
+        
+        //Lade die neuen Metadaten herunter
+        
+        DispatchQueue.global().async {
+            self.networker.getAllPictureMetadata(takenBy: self.reportedRobot)
+            print("Metacount: \(Constants.metadata.count)")
+        }
+        
+        //Gehe Weiter als wäre alles normal
+    }
 }
 
 //MARK: Extensions
 extension PhotoViewController: UIScrollViewDelegate{
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         if (offset + scrollView.frame.height == contentView.frame.height){ //Wenn am untersten ende des Views
             
             for i in images.count ... images.count + 1 {
-                if i < Constants.metadata.count {
-                    //Neue Bilder herunterladen
+                if i >= Constants.metadata.count {
+                    //Alle Bilder dieses Sols angezeigt
                     
+                    goToNextSol()
+                    
+                    break
+                    
+                } else {
+                    //Neue Bilder herunterladen
                     for _ in 1...2 {
+                        loadingIndicator.isHidden = false
+                        loadingIndicator.startAnimating()
                         networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
                     }
                     
-                } else {
-                    break
                 }
             }
         }
     }
-}
-extension PhotoViewController: UIGestureRecognizerDelegate{
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("ja lol ey")
-    }
-    
 }

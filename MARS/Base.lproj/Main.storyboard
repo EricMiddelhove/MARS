@@ -347,19 +347,18 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xkD-OM-kD6">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="541"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="loading pictures ..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KL7-Iv-BQe">
-                                                <rect key="frame" x="8" y="112" width="150" height="41"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="7J3-vt-ZYx">
+                                                <rect key="frame" x="153" y="473" width="37" height="37"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="37" id="TYK-G8-pnI"/>
+                                                </constraints>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="KL7-Iv-BQe" secondAttribute="trailing" constant="185" id="2zf-Ge-Piu"/>
-                                            <constraint firstItem="KL7-Iv-BQe" firstAttribute="leading" secondItem="xkD-OM-kD6" secondAttribute="leading" constant="8" id="5BS-bS-CV4"/>
-                                            <constraint firstItem="KL7-Iv-BQe" firstAttribute="top" secondItem="xkD-OM-kD6" secondAttribute="top" constant="112" id="9NO-yX-4Zi"/>
-                                            <constraint firstAttribute="bottom" secondItem="KL7-Iv-BQe" secondAttribute="bottom" constant="388" id="KKQ-qx-ZTT"/>
+                                            <constraint firstItem="7J3-vt-ZYx" firstAttribute="leading" secondItem="xkD-OM-kD6" secondAttribute="leading" constant="153" id="REm-go-2yC"/>
+                                            <constraint firstAttribute="bottom" secondItem="7J3-vt-ZYx" secondAttribute="bottom" constant="31" id="YL7-16-2bF"/>
+                                            <constraint firstAttribute="trailing" secondItem="7J3-vt-ZYx" secondAttribute="trailing" constant="153" id="n1h-WT-PjE"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -385,7 +384,7 @@
                             <constraint firstItem="M5k-Dz-1Lk" firstAttribute="bottom" secondItem="lbu-Z4-Mmn" secondAttribute="bottom" id="s4q-ni-EPm"/>
                             <constraint firstItem="lbu-Z4-Mmn" firstAttribute="trailing" secondItem="s3B-Id-LHa" secondAttribute="trailing" constant="16" id="vlJ-Av-DiI"/>
                             <constraint firstItem="1Ce-C0-1O9" firstAttribute="leading" secondItem="lbu-Z4-Mmn" secondAttribute="leading" priority="250" id="x15-vJ-gbI"/>
-                            <constraint firstItem="lbu-Z4-Mmn" firstAttribute="bottom" secondItem="s3B-Id-LHa" secondAttribute="bottom" priority="250" constant="529" id="zHz-id-C5d"/>
+                            <constraint firstItem="lbu-Z4-Mmn" firstAttribute="bottom" secondItem="s3B-Id-LHa" secondAttribute="bottom" priority="250" constant="549" id="zHz-id-C5d"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lbu-Z4-Mmn"/>
                     </view>
@@ -393,7 +392,7 @@
                     <connections>
                         <outlet property="contentView" destination="xkD-OM-kD6" id="SLM-rE-gtL"/>
                         <outlet property="heightConstraint" destination="vys-OX-HWv" id="o9I-ig-Eyy"/>
-                        <outlet property="loadingLabel" destination="KL7-Iv-BQe" id="R58-7e-KTO"/>
+                        <outlet property="loadingIndicator" destination="7J3-vt-ZYx" id="ekJ-DN-mpf"/>
                         <outlet property="photoButton" destination="s3B-Id-LHa" id="BaY-zY-KMi"/>
                         <outlet property="scrollView" destination="M5k-Dz-1Lk" id="TIi-4k-G60"/>
                     </connections>

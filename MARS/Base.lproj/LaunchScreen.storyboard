@@ -24,6 +24,7 @@
                         <constraints>
                             <constraint firstItem="lI5-Un-MAf" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="375:667" id="1Nm-Oh-Ks8"/>
                             <constraint firstItem="lI5-Un-MAf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5db-lF-mUX"/>
+                            <constraint firstItem="lI5-Un-MAf" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" id="APl-yY-nav"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lI5-Un-MAf" secondAttribute="trailing" id="KQv-Uf-fm3"/>
                             <constraint firstItem="lI5-Un-MAf" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="10" id="iMc-59-wcA"/>
                         </constraints>
