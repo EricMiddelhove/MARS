@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -342,23 +342,19 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5k-Dz-1Lk">
-                                <rect key="frame" x="16" y="126" width="343" height="541"/>
+                                <rect key="frame" x="16" y="157" width="343" height="510"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xkD-OM-kD6">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="541"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="510"/>
                                         <subviews>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="7J3-vt-ZYx">
-                                                <rect key="frame" x="153" y="473" width="37" height="37"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="37" id="TYK-G8-pnI"/>
-                                                </constraints>
+                                                <rect key="frame" x="153" y="465" width="37" height="37"/>
                                             </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="7J3-vt-ZYx" firstAttribute="leading" secondItem="xkD-OM-kD6" secondAttribute="leading" constant="153" id="REm-go-2yC"/>
-                                            <constraint firstAttribute="bottom" secondItem="7J3-vt-ZYx" secondAttribute="bottom" constant="31" id="YL7-16-2bF"/>
-                                            <constraint firstAttribute="trailing" secondItem="7J3-vt-ZYx" secondAttribute="trailing" constant="153" id="n1h-WT-PjE"/>
+                                            <constraint firstItem="7J3-vt-ZYx" firstAttribute="bottom" secondItem="xkD-OM-kD6" secondAttribute="bottomMargin" id="LHZ-yx-sWF"/>
+                                            <constraint firstItem="7J3-vt-ZYx" firstAttribute="centerX" secondItem="xkD-OM-kD6" secondAttribute="centerX" id="akO-CQ-wr9"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -371,19 +367,29 @@
                                     <constraint firstItem="xkD-OM-kD6" firstAttribute="top" secondItem="M5k-Dz-1Lk" secondAttribute="top" id="zbX-e7-2AR"/>
                                 </constraints>
                             </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sol: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdM-tZ-PEO">
+                                <rect key="frame" x="16" y="105" width="203" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="s3B-Id-LHa" firstAttribute="leading" secondItem="lbu-Z4-Mmn" secondAttribute="leading" constant="137" id="13c-Bk-mqr"/>
                             <constraint firstItem="lbu-Z4-Mmn" firstAttribute="bottom" secondItem="1Ce-C0-1O9" secondAttribute="bottom" id="21f-zc-QKo"/>
                             <constraint firstItem="lbu-Z4-Mmn" firstAttribute="trailing" secondItem="M5k-Dz-1Lk" secondAttribute="trailing" constant="16" id="9S2-97-X0O"/>
+                            <constraint firstItem="lbu-Z4-Mmn" firstAttribute="trailing" secondItem="YdM-tZ-PEO" secondAttribute="trailing" constant="156" id="B0s-SC-AGd"/>
+                            <constraint firstItem="YdM-tZ-PEO" firstAttribute="leading" secondItem="lbu-Z4-Mmn" secondAttribute="leading" constant="16" id="ECN-Y1-5jw"/>
                             <constraint firstItem="lbu-Z4-Mmn" firstAttribute="trailing" secondItem="1Ce-C0-1O9" secondAttribute="trailing" id="MQI-IO-Q7s"/>
                             <constraint firstItem="s3B-Id-LHa" firstAttribute="top" secondItem="lbu-Z4-Mmn" secondAttribute="top" priority="750" constant="39" id="Tud-Bs-PZk"/>
-                            <constraint firstItem="M5k-Dz-1Lk" firstAttribute="top" secondItem="s3B-Id-LHa" secondAttribute="bottom" priority="750" constant="8" id="Xcd-z6-fYP"/>
+                            <constraint firstItem="M5k-Dz-1Lk" firstAttribute="top" secondItem="s3B-Id-LHa" secondAttribute="bottom" priority="750" constant="39" id="Xcd-z6-fYP"/>
                             <constraint firstItem="M5k-Dz-1Lk" firstAttribute="leading" secondItem="lbu-Z4-Mmn" secondAttribute="leading" constant="16" id="dlq-Gf-yyV"/>
                             <constraint firstItem="M5k-Dz-1Lk" firstAttribute="bottom" secondItem="lbu-Z4-Mmn" secondAttribute="bottom" id="s4q-ni-EPm"/>
+                            <constraint firstItem="M5k-Dz-1Lk" firstAttribute="top" secondItem="YdM-tZ-PEO" secondAttribute="bottom" constant="8" id="vRw-gu-1v0"/>
                             <constraint firstItem="lbu-Z4-Mmn" firstAttribute="trailing" secondItem="s3B-Id-LHa" secondAttribute="trailing" constant="16" id="vlJ-Av-DiI"/>
                             <constraint firstItem="1Ce-C0-1O9" firstAttribute="leading" secondItem="lbu-Z4-Mmn" secondAttribute="leading" priority="250" id="x15-vJ-gbI"/>
+                            <constraint firstItem="YdM-tZ-PEO" firstAttribute="top" secondItem="lbu-Z4-Mmn" secondAttribute="top" constant="105" id="xk2-2g-EQE"/>
                             <constraint firstItem="lbu-Z4-Mmn" firstAttribute="bottom" secondItem="s3B-Id-LHa" secondAttribute="bottom" priority="250" constant="549" id="zHz-id-C5d"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lbu-Z4-Mmn"/>
@@ -395,6 +401,7 @@
                         <outlet property="loadingIndicator" destination="7J3-vt-ZYx" id="ekJ-DN-mpf"/>
                         <outlet property="photoButton" destination="s3B-Id-LHa" id="BaY-zY-KMi"/>
                         <outlet property="scrollView" destination="M5k-Dz-1Lk" id="TIi-4k-G60"/>
+                        <outlet property="solLabel" destination="YdM-tZ-PEO" id="4JX-YN-6XU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Fn-S7-PaR" sceneMemberID="firstResponder"/>

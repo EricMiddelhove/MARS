@@ -20,4 +20,6 @@ class Constants{
     static var metadata: [PhotoMetadata]!
     static var latestSolKey: String = "" // Init in getWeatherData
     static var imageData: Data? = nil
+    static var solData:[String:Int] = [:]  //[PhotoCount:SolDate]
+
 }

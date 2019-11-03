@@ -17,6 +17,7 @@ class PhotoViewController: UIViewController{
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var photoButton: UIButton!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var solLabel: UILabel!
     
     
     //MARK: Variables & Constants
@@ -28,7 +29,7 @@ class PhotoViewController: UIViewController{
     let tapRecognizer = UITapGestureRecognizer()
     
     var reportedRobot: Constants.Robots!
-    var images: [UIButton] = []
+    var imagesOfSol: [UIButton] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,7 @@ class PhotoViewController: UIViewController{
         loadingIndicator.startAnimating()
         DispatchQueue.global(qos: .userInitiated).async {
             self.networker.getLatestSol(from: self.reportedRobot)
+            
             self.networker.getAllPictureMetadata(takenBy: self.reportedRobot)
         }
 
@@ -103,6 +105,11 @@ class PhotoViewController: UIViewController{
                     self.networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
                 }
             }
+            
+            DispatchQueue.main.sync {
+                loadNextPictures()
+            }
+            
         }
         
         
@@ -119,7 +126,14 @@ class PhotoViewController: UIViewController{
     }
     
     //MARK: Helper Functions
+    var isInitialCall = true
     func addNewImageFrom(data:Data){
+        
+        if isInitialCall {
+            solLabel.text = "Sol: " + String(networker.maxSol!)
+            isInitialCall = false
+        }
+        
         let w = contentView.frame.width - STANDARD_FRONT_SPACING * 2  //WIDTH = HEIGHT
         let y = (STANDARD_TOP_SPACING + w) * CGFloat(contentView.subviews.count - 1)
         
@@ -141,17 +155,19 @@ class PhotoViewController: UIViewController{
         newButton.addSubview(imageView)
 
         let currentHeight = contentView.frame.height
-
+        
+        //wenn nötig vergrößerung des scroll views
         if currentHeight < newButton.frame.maxY {
             heightConstraint.constant += newButton.frame.height + STANDARD_TOP_SPACING
         }
         
         //Adding view to superview
-        images += [newButton]
+        imagesOfSol += [newButton]
+        print("Adde sol Data für Image " + String(contentView.subviews.count))
+        Constants.solData[String(contentView.subviews.count)] = networker.maxSol!
+
         contentView.addSubview(newButton)
         
-        //Hiding loading label
-//        loadingLabel.isHidden = true
     }
     
     func addImageToLibrary(_ image: UIImage){
@@ -186,9 +202,9 @@ class PhotoViewController: UIViewController{
         networker.maxSol! -=  1
         
         //Lösche die images Array
-        images = []
+        imagesOfSol = []
         print("Sol: \(networker.maxSol!)")
-        print("Image count: \(images.count)")
+        print("Image count: \(imagesOfSol.count)")
         
         //Lade die neuen Metadaten herunter
         
@@ -199,6 +215,32 @@ class PhotoViewController: UIViewController{
         
         //Gehe Weiter als wäre alles normal
     }
+    
+    //ONLY CALL IN MAIN THREAD
+    func loadNextPictures(){
+        
+        
+        loadingIndicator.isHidden = false
+        loadingIndicator.startAnimating()
+        
+        
+        for i in imagesOfSol.count ... imagesOfSol.count + 1 {
+            if i >= Constants.metadata.count {
+                //Alle Bilder dieses Sols angezeigt
+                
+                goToNextSol()
+                
+                break
+                
+            } else {
+                //Neue Bilder herunterladen
+                for _ in 1...2 {
+                    networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
+                }
+                
+            }
+        }
+    }
 }
 
 //MARK: Extensions
@@ -206,26 +248,28 @@ extension PhotoViewController: UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
+        
+        let pictureHeight = contentView.frame.width - STANDARD_FRONT_SPACING * 2
+        let currentImageShown: Int!
+                
+        if offset >= 0{
+            currentImageShown = Int(offset / (STANDARD_TOP_SPACING + pictureHeight))
+        }else{
+            currentImageShown = 0
+        }
+        
+//        print(currentImageShown)
+        
+        if let sol = Constants.solData[String(currentImageShown!)]{
+            solLabel.text = "Sol: " + String(sol) // DEBUG
+        }
+        
+        
+        
+        // Am Boden angekommen
         if (offset + scrollView.frame.height == contentView.frame.height){ //Wenn am untersten ende des Views
             
-            for i in images.count ... images.count + 1 {
-                if i >= Constants.metadata.count {
-                    //Alle Bilder dieses Sols angezeigt
-                    
-                    goToNextSol()
-                    
-                    break
-                    
-                } else {
-                    //Neue Bilder herunterladen
-                    for _ in 1...2 {
-                        loadingIndicator.isHidden = false
-                        loadingIndicator.startAnimating()
-                        networker.downloadImageFrom(urlString: Constants.metadata[i].img_src)
-                    }
-                    
-                }
-            }
+            loadNextPictures()
         }
     }
 }
