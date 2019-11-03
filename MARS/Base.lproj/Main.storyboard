@@ -123,7 +123,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENk-1f-4pw">
-                                <rect key="frame" x="108" y="39" width="251" height="75"/>
+                                <rect key="frame" x="108" y="39" width="251" height="105"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="52"/>
                                 <state key="normal" title="WEATHER">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -140,7 +140,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="WaC-1b-C48">
-                                <rect key="frame" x="16" y="134" width="343" height="203"/>
+                                <rect key="frame" x="16" y="164" width="343" height="203"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sol: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhS-f6-aQ0" userLabel="Sol:">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="45.5"/>
@@ -185,23 +185,35 @@
                                     <constraint firstItem="dhS-f6-aQ0" firstAttribute="top" secondItem="WaC-1b-C48" secondAttribute="top" id="ZRM-rg-jja"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aPZ-Cg-JoW">
+                                <rect key="frame" x="169" y="397" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="37" id="eaq-4x-1AE"/>
+                                    <constraint firstAttribute="height" constant="37" id="noz-T7-3dj"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="v9A-3O-D2U" firstAttribute="trailing" secondItem="WaC-1b-C48" secondAttribute="trailing" constant="16" id="1lb-8y-7vR"/>
                             <constraint firstItem="A84-DB-vaX" firstAttribute="leading" secondItem="v9A-3O-D2U" secondAttribute="leading" priority="750" constant="11" id="81i-Am-1OS"/>
                             <constraint firstItem="A84-DB-vaX" firstAttribute="trailing" secondItem="v9A-3O-D2U" secondAttribute="trailing" constant="11.5" id="9ye-wN-bNv"/>
+                            <constraint firstItem="v9A-3O-D2U" firstAttribute="trailing" secondItem="aPZ-Cg-JoW" secondAttribute="trailing" constant="169" id="DHy-iU-laI"/>
                             <constraint firstItem="ENk-1f-4pw" firstAttribute="leading" secondItem="v9A-3O-D2U" secondAttribute="leading" constant="108" id="ES5-14-N7r"/>
                             <constraint firstItem="WaC-1b-C48" firstAttribute="leading" secondItem="v9A-3O-D2U" secondAttribute="leading" constant="16" id="Neo-Wk-tWW"/>
                             <constraint firstItem="v9A-3O-D2U" firstAttribute="trailing" secondItem="ENk-1f-4pw" secondAttribute="trailing" constant="16" id="Tzn-Dw-93y"/>
+                            <constraint firstItem="aPZ-Cg-JoW" firstAttribute="leading" secondItem="v9A-3O-D2U" secondAttribute="leading" constant="169" id="X6R-Pt-fPU"/>
                             <constraint firstItem="v9A-3O-D2U" firstAttribute="bottom" secondItem="A84-DB-vaX" secondAttribute="bottom" id="ghC-hY-Kzu"/>
                             <constraint firstItem="ENk-1f-4pw" firstAttribute="top" secondItem="v9A-3O-D2U" secondAttribute="top" constant="39" id="idw-4l-32i"/>
                             <constraint firstItem="WaC-1b-C48" firstAttribute="top" secondItem="ENk-1f-4pw" secondAttribute="bottom" constant="20" id="idy-Ls-QYg"/>
+                            <constraint firstItem="aPZ-Cg-JoW" firstAttribute="top" secondItem="WaC-1b-C48" secondAttribute="bottom" constant="30" id="jke-BB-enl"/>
+                            <constraint firstItem="v9A-3O-D2U" firstAttribute="bottom" secondItem="aPZ-Cg-JoW" secondAttribute="bottom" priority="750" constant="233" id="szg-jI-vDw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v9A-3O-D2U"/>
                     </view>
                     <connections>
                         <outlet property="atLabel" destination="tKC-It-vsI" id="YsF-Rf-TBT"/>
+                        <outlet property="downloadIndicator" destination="aPZ-Cg-JoW" id="QcB-p5-dvg"/>
                         <outlet property="maxTLabel" destination="qqG-li-QeF" id="wfd-I8-YfM"/>
                         <outlet property="minTLabel" destination="QUY-Rd-0xZ" id="N6a-dd-ebj"/>
                         <outlet property="photoButton" destination="ENk-1f-4pw" id="qq0-1f-Ko9"/>

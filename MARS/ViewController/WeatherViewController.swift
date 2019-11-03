@@ -36,6 +36,7 @@ class WeatherViewController: UIViewController{
     @IBOutlet weak var minTLabel: UILabel!
     @IBOutlet weak var wsLabel: UILabel!
     @IBOutlet weak var preLabel: UILabel!
+    @IBOutlet weak var downloadIndicator: UIActivityIndicatorView!
     
     
     override func viewDidLoad() {
@@ -43,13 +44,14 @@ class WeatherViewController: UIViewController{
         photoButton.layer.borderWidth = 2
         photoButton.layer.borderColor = photoButton.currentTitleColor.cgColor
         photoButton.layer.cornerRadius = 10
+        downloadIndicator.hidesWhenStopped = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(recievedWeatherData(_:)), name: Notification.Name(rawValue: "weatherdataRecieved"), object: nil)
         // Lade Herunter und speichere in Constants.solData
         
         //teste ob daten schon heruntergeladen wurden,wenn ja dann triggere ich die UI Upadte Methode, wenn nicht dann lade ich sie herunter
         
-        
+        downloadIndicator.startAnimating()
         DispatchQueue.global().async {
             self.networker.getWeatherData()
         }
@@ -66,6 +68,8 @@ class WeatherViewController: UIViewController{
             maxTLabel.text = MAXT_STAND + sol.AT.mx + " °C"
             wsLabel.text = WS_STAND + String(sol.HWS.avRaw) + " m/s"            // String(...avRaw) raw value da normales automatisch in °C umgewandelt wird ...
             preLabel.text = PRE_STAND + String(sol.PRE.avRaw) + " Pa"
+            
+            downloadIndicator.stopAnimating()
         }
         
     }
