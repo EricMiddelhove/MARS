@@ -122,8 +122,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mars" translatesAutoresizingMaskIntoConstraints="NO" id="A84-DB-vaX">
+                                <rect key="frame" x="11" y="349.5" width="375.5" height="317.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="A84-DB-vaX" secondAttribute="height" multiplier="375:317" id="qjF-aM-lOm"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENk-1f-4pw">
-                                <rect key="frame" x="108" y="39" width="251" height="105"/>
+                                <rect key="frame" x="108" y="39" width="251" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="79" id="YsQ-mg-KCk"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="52"/>
                                 <state key="normal" title="WEATHER">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -133,12 +142,6 @@
                                     <segue destination="BQX-lD-xZT" kind="unwind" unwindAction="unwindToMainMenueWithSegue:" id="3nW-Mb-5in"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mars" translatesAutoresizingMaskIntoConstraints="NO" id="A84-DB-vaX">
-                                <rect key="frame" x="11" y="349.5" width="375.5" height="317.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="A84-DB-vaX" secondAttribute="height" multiplier="375:317" id="qjF-aM-lOm"/>
-                                </constraints>
-                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="WaC-1b-C48">
                                 <rect key="frame" x="16" y="164" width="343" height="203"/>
                                 <subviews>
@@ -204,10 +207,10 @@
                             <constraint firstItem="v9A-3O-D2U" firstAttribute="trailing" secondItem="ENk-1f-4pw" secondAttribute="trailing" constant="16" id="Tzn-Dw-93y"/>
                             <constraint firstItem="aPZ-Cg-JoW" firstAttribute="leading" secondItem="v9A-3O-D2U" secondAttribute="leading" constant="169" id="X6R-Pt-fPU"/>
                             <constraint firstItem="v9A-3O-D2U" firstAttribute="bottom" secondItem="A84-DB-vaX" secondAttribute="bottom" id="ghC-hY-Kzu"/>
-                            <constraint firstItem="ENk-1f-4pw" firstAttribute="top" secondItem="v9A-3O-D2U" secondAttribute="top" constant="39" id="idw-4l-32i"/>
-                            <constraint firstItem="WaC-1b-C48" firstAttribute="top" secondItem="ENk-1f-4pw" secondAttribute="bottom" constant="20" id="idy-Ls-QYg"/>
+                            <constraint firstItem="ENk-1f-4pw" firstAttribute="top" secondItem="v9A-3O-D2U" secondAttribute="top" priority="750" constant="39" id="idw-4l-32i"/>
+                            <constraint firstItem="WaC-1b-C48" firstAttribute="top" secondItem="ENk-1f-4pw" secondAttribute="bottom" priority="250" constant="20" id="idy-Ls-QYg"/>
                             <constraint firstItem="aPZ-Cg-JoW" firstAttribute="top" secondItem="WaC-1b-C48" secondAttribute="bottom" constant="30" id="jke-BB-enl"/>
-                            <constraint firstItem="v9A-3O-D2U" firstAttribute="bottom" secondItem="aPZ-Cg-JoW" secondAttribute="bottom" priority="750" constant="233" id="szg-jI-vDw"/>
+                            <constraint firstItem="v9A-3O-D2U" firstAttribute="bottom" secondItem="aPZ-Cg-JoW" secondAttribute="bottom" constant="233" id="szg-jI-vDw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v9A-3O-D2U"/>
                     </view>
@@ -225,7 +228,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0i-v9-Kxq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="BQX-lD-xZT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="481" y="453"/>
+            <point key="canvasLocation" x="480.80000000000001" y="452.92353823088462"/>
         </scene>
         <!--Robot View Controller-->
         <scene sceneID="bVv-Zs-dFW">
@@ -237,6 +240,9 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eJ-zO-D8I">
                                 <rect key="frame" x="137" y="39" width="222" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="79" id="wjN-v4-SAl"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="56"/>
                                 <state key="normal" title="PHOTOS">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

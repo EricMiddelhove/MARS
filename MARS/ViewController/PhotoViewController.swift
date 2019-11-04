@@ -34,6 +34,8 @@ class PhotoViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        solLabel.textColor = .white
+        
         //Download Metadata
         loadingIndicator.startAnimating()
         DispatchQueue.global(qos: .userInitiated).async {

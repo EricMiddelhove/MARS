@@ -52,6 +52,7 @@
 		2884844B2339222E0009BF01 /* RobotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotViewController.swift; sourceTree = "<group>"; };
 		288AA400232FFBE30067C44F /* DataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCollection.swift; sourceTree = "<group>"; };
 		28A9578A2332B4B000002ACA /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		28F21682236F3F5200249908 /* MARS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MARS.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +94,7 @@
 		283385F52327FA87008D586F /* MARS */ = {
 			isa = PBXGroup;
 			children = (
+				28F21682236F3F5200249908 /* MARS.entitlements */,
 				2831C9862339442500642FB1 /* Constants.swift */,
 				2878C6BE232D8F91009406C8 /* DataModels */,
 				2878C6BB232D886B009406C8 /* Handler */,
@@ -416,7 +418,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MARS/MARS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = 947BCU3P9W;
 				INFOPLIST_FILE = MARS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -425,6 +429,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eric.middelhove.MARS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -434,7 +439,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MARS/MARS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = 947BCU3P9W;
 				INFOPLIST_FILE = MARS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -443,6 +450,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eric.middelhove.MARS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
