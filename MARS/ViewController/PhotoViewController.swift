@@ -85,7 +85,7 @@ class PhotoViewController: UIViewController{
        
         
         
-        if Constants.metadata.count > 4 {
+        if Constants.metadata.count > 6 {
             // Nur 3 Herunterladen
             
             for i in 0...3{
@@ -161,6 +161,8 @@ class PhotoViewController: UIViewController{
         //wenn nötig vergrößerung des scroll views
         if currentHeight < newButton.frame.maxY {
             heightConstraint.constant += newButton.frame.height + STANDARD_TOP_SPACING
+//            print(heightConstraint.constant)
+//            print(scrollView.frame.height)
         }
         
         //Adding view to superview
