@@ -33,35 +33,30 @@ class NetworkHandler{
     
     //Returns Sol object containing weatherdata
     func getWeatherData(){
-        
         print("Lade Wetterdaten herunter")
         
+        //"https://api.nasa.gov/insight_weather/?api_key=2V9ACrQ50aZcc6lprgYd00WbFFAMRNA9LdtdzQKQ&feedtype=json&ver=1.0"
         let url = URL(string: WEATHER)!
         print(url)
         var request = URLRequest(url: url)
-        
         request.httpMethod = "GET"
-           
+        
         URLSession.shared.dataTask(with: request) { (dat, res, err) in
                 
             guard let data = dat else {
                 print("no Data")
                 return
             }
-                
             guard res == res else {
                 print("No Response ")
                 return
             }
-            
             if let error = err {
                 print("Error: \(error)")
                 return
             }
-                
 
             do{
-                    
                 var dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]
                 dictionary!["validity_checks"] = "" as AnyObject
                     
@@ -69,17 +64,14 @@ class NetworkHandler{
                 let solKeys = dict["sol_keys"]! as! NSArray
                     
                 Constants.latestSolKey = solKeys[solKeys.count-1] as! String // Suche den letzten Sol als String -> key für das gesamte dictionary
-                
                 Constants.SolData = Sol(from: dict[Constants.latestSolKey] as! NSDictionary)
-                
             } catch {
                 print("Data decode failed \(error)")
             }
             
             NotificationCenter.default.post(name: Notification.Name(rawValue: "weatherdataRecieved"), object: nil)
-            
-        }.resume()
         
+        }.resume()
         print("Wetterdaten herunterladen abgeschlossen")
     }
     

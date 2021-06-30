@@ -47,9 +47,6 @@ class WeatherViewController: UIViewController{
         downloadIndicator.hidesWhenStopped = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(recievedWeatherData(_:)), name: Notification.Name(rawValue: "weatherdataRecieved"), object: nil)
-        // Lade Herunter und speichere in Constants.solData
-        
-        //teste ob daten schon heruntergeladen wurden,wenn ja dann triggere ich die UI Upadte Methode, wenn nicht dann lade ich sie herunter
         
         downloadIndicator.startAnimating()
         DispatchQueue.global().async {
